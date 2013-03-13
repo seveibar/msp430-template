@@ -28,16 +28,17 @@ LDFLAGS = -mmcu=$(MCU) -Wl,-Map=$(OUTDIR)/$(TARGET).map
 #######################################
 # binaries
 #######################################
-CC      = msp430-gcc
-LD      = msp430-ld
-AR      = msp430-ar
-AS      = msp430-gcc
-GASP    = msp430-gasp
-NM      = msp430-nm
-OBJCOPY = msp430-objcopy
-MAKETXT = srec_cat
-RM      = rm -f
-MKDIR	= mkdir -p
+CC      	= msp430-gcc
+LD      	= msp430-ld
+AR      	= msp430-ar
+AS      	= msp430-gcc
+GASP    	= msp430-gasp
+NM      	= msp430-nm
+OBJCOPY 	= msp430-objcopy
+MAKETXT 	= srec_cat
+UNIX2DOS	= unix2dos
+RM      	= rm -f
+MKDIR		= mkdir -p
 #######################################
 
 # file that includes all dependancies
@@ -52,7 +53,7 @@ all: $(OUTDIR)/$(TARGET).hex $(OUTDIR)/$(TARGET).txt
 # TI TXT file
 $(OUTDIR)/%.txt: $(OUTDIR)/%.hex
 	$(MAKETXT) -O $@ -TITXT $< -I
-	unix2dos $(OUTDIR)/$(TARGET).txt
+	$(UNIX2DOS) $(OUTDIR)/$(TARGET).txt
 
 # intel hex file
 $(OUTDIR)/%.hex: $(OUTDIR)/%.elf
