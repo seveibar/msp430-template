@@ -43,25 +43,29 @@ MKDIR	= mkdir -p
 # file that includes all dependancies
 DEPEND = $(SOURCES:.c=.d)
 
-# list all object files
-OBJECTS = $(addprefix $(OUTDIR)/,$(SOURCES:.c=.o))
+# list of object files, placed in the build directory regardless of source path
+OBJECTS = $(addprefix $(OUTDIR)/,$(notdir $(SOURCES:.c=.o)))
 
-# default: build all
-all: $(OUTDIR)/$(TARGET).elf $(OUTDIR)/$(TARGET).hex $(OUTDIR)/$(TARGET).txt
+# default: build hex file and TI TXT file
+all: $(OUTDIR)/$(TARGET).hex $(OUTDIR)/$(TARGET).txt
 
-$(OUTDIR)/$(TARGET).elf: $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) $(LIBS) -o $@
-
-$(OUTDIR)/%.hex: $(OUTDIR)/%.elf
-	$(OBJCOPY) -O ihex $< $@
-
+# TI TXT file
 $(OUTDIR)/%.txt: $(OUTDIR)/%.hex
 	$(MAKETXT) -O $@ -TITXT $< -I
 	unix2dos $(OUTDIR)/$(TARGET).txt
 
+# intel hex file
+$(OUTDIR)/%.hex: $(OUTDIR)/%.elf
+	$(OBJCOPY) -O ihex $< $@
+
+# elf file
+$(OUTDIR)/$(TARGET).elf: $(OBJECTS)
+	$(CC) $(OBJECTS) $(LDFLAGS) $(LIBS) -o $@
+
 $(OUTDIR)/%.o: src/%.c | $(OUTDIR)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
+# assembly listing
 %.lst: %.c
 	$(CC) -c $(ASFLAGS) -Wa,-anlhd $< > $@
 
@@ -69,5 +73,6 @@ $(OUTDIR)/%.o: src/%.c | $(OUTDIR)
 $(OUTDIR):
 	$(MKDIR) $(OUTDIR)
 
+# remove build artifacts and executables
 clean:
 	-$(RM) $(OUTDIR)/*
