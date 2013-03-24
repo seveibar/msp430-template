@@ -77,3 +77,5 @@ $(OUTDIR):
 # remove build artifacts and executables
 clean:
 	-$(RM) $(OUTDIR)/*
+
+.PHONY: all clean

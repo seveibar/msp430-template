@@ -17,17 +17,20 @@ MSP430 Template
 
 ### Ubuntu
 
-Packages for the MSP430 toolchain are available in the Ubuntu repositories. To fetch the required packages, run:
+Packages for the MSP430 toolchain are available in the Ubuntu repositories. 
+To fetch the required packages, run:
 
-    sudo apt-get install build-essential srecord binutils-msp430 gcc-msp430 gdb-msp430 msp430-libc msp430mcu mspdebug dos2unix
+    sudo apt-get install build-essential srecord binutils-msp430 gcc-msp430
+    gdb-msp430 msp430-libc msp430mcu mspdebug dos2unix
 
 This will install the build toolchain and the mspdebug tool.
 
 ## Writing and Building Firmware
 
-1. Clone the [msp430-template](https://github.com/uctools/msp430-templates) repository (or fork it and clone your own repository).
+1. Clone the [msp430-template](https://github.com/uctools/msp430-template)
+   repository (or fork it and clone your own repository).
 
-        git clone git@github.com:uctools:msp430-template
+        git clone git@github.com:uctools/msp430-template
 
 2. Modify the Makefile:
     * Set TARGET to the desired name of the output file (eg: TARGET = main)
@@ -42,7 +45,8 @@ This will install the build toolchain and the mspdebug tool.
 
 ### mspdebug
 
-To flash a device using mspdebug, run mspdebug and specify a debugger. For the MSP430 Launchpad, the debugger is `rf2500`:
+To flash a device using mspdebug, run mspdebug and specify a debugger.
+For the MSP430 Launchpad, the debugger is `rf2500`:
 
     mspdebug rf2500
 
@@ -53,4 +57,6 @@ In mspdebug, you can load and run the program:
     (mspdebug) load build/main.hex
     (mspdebug) run
 
-Further support on using mspdebug is available on the [mspdebug homepage](http://mspdebug.sourceforge.net/) and in the [mspdebug manual](http://mspdebug.sourceforge.net/manual.html).
+Further support on using mspdebug is available on the [mspdebug
+homepage](http://mspdebug.sourceforge.net/) and in the [mspdebug
+manual](http://mspdebug.sourceforge.net/manual.html).
