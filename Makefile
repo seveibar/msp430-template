@@ -41,7 +41,7 @@ RM      	= rm -f
 MKDIR		= mkdir -p
 #######################################
 
-# file that includes all dependancies
+# file that includes all dependencies
 DEPEND = $(SOURCES:.c=.d)
 
 # list of object files, placed in the build directory regardless of source path
