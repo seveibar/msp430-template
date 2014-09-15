@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Just does it
+make clean
+make
+./upload
